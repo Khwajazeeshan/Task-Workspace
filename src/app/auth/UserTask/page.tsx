@@ -145,6 +145,63 @@ export default function UserTask() {
         }
     }
 
+    // ── Full-page loading overlay ──────────────────────────────────────────
+    if (loading) {
+        return (
+            <div className="fixed inset-0 z-50 bg-background flex flex-col items-center justify-center overflow-hidden">
+                {/* Ambient background blobs */}
+                <div className="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/10 rounded-full blur-[140px] pointer-events-none animate-pulse" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-500/10 rounded-full blur-[140px] pointer-events-none animate-pulse" style={{ animationDelay: "1s" }} />
+
+                {/* Central loader card */}
+                <div className="relative flex flex-col items-center gap-8 px-10 py-12 rounded-3xl border border-border/40 backdrop-blur-xl bg-secondary/20 shadow-2xl shadow-black/40">
+
+                    {/* Spinning rings */}
+                    <div className="relative w-24 h-24 flex items-center justify-center">
+                        {/* Outer ring */}
+                        <div className="absolute inset-0 rounded-full border-4 border-transparent border-t-primary animate-spin" style={{ animationDuration: "1s" }} />
+                        {/* Middle ring */}
+                        <div className="absolute inset-3 rounded-full border-4 border-transparent border-t-purple-400 animate-spin" style={{ animationDuration: "1.5s", animationDirection: "reverse" }} />
+                        {/* Inner glow dot */}
+                        <div className="w-8 h-8 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center shadow-[0_0_24px_rgba(59,130,246,0.5)]">
+                            <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+                        </div>
+                    </div>
+
+                    {/* Text */}
+                    <div className="text-center space-y-2">
+                        <h2 className="text-xl font-black tracking-tight text-foreground">
+                            Loading your workspace
+                        </h2>
+                        <p className="text-sm text-muted-foreground animate-pulse">
+                            Fetching your tasks from the server…
+                        </p>
+                    </div>
+
+                    {/* Shimmer progress bar */}
+                    <div className="w-64 h-1.5 bg-secondary rounded-full overflow-hidden">
+                        <div
+                            className="h-full rounded-full bg-gradient-to-r from-primary via-purple-400 to-primary"
+                            style={{
+                                width: "60%",
+                                animation: "shimmerProgress 1.6s ease-in-out infinite",
+                            }}
+                        />
+                    </div>
+                </div>
+
+                {/* Keyframe for the shimmer progress bar */}
+                <style>{`
+                    @keyframes shimmerProgress {
+                        0%   { transform: translateX(-160px); }
+                        100% { transform: translateX(260px); }
+                    }
+                `}</style>
+            </div>
+        )
+    }
+    // ──────────────────────────────────────────────────────────────────────────
+
     return (
         <div className="min-h-screen bg-background text-foreground p-4 md:p-8 font-[family-name:var(--font-geist-sans)] relative overflow-x-hidden">
             {/* Background blobs */}
@@ -232,12 +289,7 @@ export default function UserTask() {
                     </div>
 
                     <div className="space-y-3 min-h-[400px]">
-                        {loading ? (
-                            <div className="flex flex-col items-center justify-center py-24 space-y-4">
-                                <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                                <p className="text-muted-foreground font-medium animate-pulse">Synchronizing workspace...</p>
-                            </div>
-                        ) : tasks.length === 0 ? (
+                        {tasks.length === 0 ? (
                             <div className="text-center py-24 glass-card border-2 border-dashed border-border/40 rounded-3xl animate-in zoom-in duration-700">
                                 <div className="w-20 h-20 bg-secondary rounded-3xl flex items-center justify-center mx-auto mb-6 text-muted-foreground opacity-50">
                                     <MdTaskAlt className="text-4xl" />

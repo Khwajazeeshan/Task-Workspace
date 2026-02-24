@@ -59,27 +59,15 @@ function VerifyEmailContent() {
                     ? "We are verifying your credentials and securing your workspace."
                     : verified
                         ? "Authentication successful! Your workspace is now ready and secured."
-                        : "The Verifying link has expired or is invalid. Please request a new one."}
+                        : "The Verification link has expired or is invalid. Please request a new one."}
             </p>
 
-            {verified ? (
-                <Link
-                    href="/"
-                    className={`inline-block w-full py-4 ${verified ? 'bg-primary hover:bg-blue-600' : 'bg-secondary hover:bg-secondary/80'} text-white font-bold rounded-2xl transition-all active:scale-[0.98] shadow-lg ${verified ? 'shadow-primary/20' : ''}`}
-                >
-                    Enter Workspace
-                </Link>
-            ) :
-                (
-                    <Link
-                        href="/auth/login"
-                        className={`inline-block w-full py-4 ${verified ? 'bg-primary hover:bg-blue-600' : 'bg-secondary hover:bg-secondary/80'} text-white font-bold rounded-2xl transition-all active:scale-[0.98] shadow-lg ${verified ? 'shadow-primary/20' : ''}`}
-                    >
-                        Back to Login
-                    </Link>
-                )}
-
-
+            <Link
+                href="/auth/login"
+                className={`inline-block w-full py-4 ${verified ? 'bg-primary hover:bg-blue-600' : 'bg-secondary hover:bg-secondary/80'} text-white font-bold rounded-2xl transition-all active:scale-[0.98] shadow-lg ${verified ? 'shadow-primary/20' : ''}`}
+            >
+                Back to Login
+            </Link>
 
             <p className="mt-8 text-[10px] text-muted-foreground uppercase font-bold tracking-widest opacity-40 italic">
                 Secure Identity Protocol v2.0
