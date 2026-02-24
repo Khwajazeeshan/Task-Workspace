@@ -87,7 +87,7 @@ export default function Login() {
                             {isSubmitting ? (
                                 <>
                                     <div className="w-5 h-5 border-2 border-white/20 border-t-white rounded-full animate-spin"></div>
-                                    <span>Verifying...</span>
+                                    <span>Please Wait...</span>
                                 </>
                             ) : (
                                 "Sign In with Email"

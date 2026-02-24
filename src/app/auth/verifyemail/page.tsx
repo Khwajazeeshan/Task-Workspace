@@ -51,7 +51,7 @@ function VerifyEmailContent() {
             </div>
 
             <h1 className="text-3xl font-black mb-4 tracking-tight">
-                {verifying ? "Verifying Token" : verified ? "Identity Secured" : "Security Breach"}
+                {verifying ? "Verifying Email" : verified ? "Email Verified" : "Security Breach"}
             </h1>
 
             <p className="text-muted-foreground mb-10 font-medium leading-relaxed max-w-sm mx-auto">
@@ -59,15 +59,27 @@ function VerifyEmailContent() {
                     ? "We are verifying your credentials and securing your workspace."
                     : verified
                         ? "Authentication successful! Your workspace is now ready and secured."
-                        : "The secure link has expired or is invalid. Please request a new one."}
+                        : "The Verifying link has expired or is invalid. Please request a new one."}
             </p>
 
-            <Link
-                href="/auth/login"
-                className={`inline-block w-full py-4 ${verified ? 'bg-primary hover:bg-blue-600' : 'bg-secondary hover:bg-secondary/80'} text-white font-bold rounded-2xl transition-all active:scale-[0.98] shadow-lg ${verified ? 'shadow-primary/20' : ''}`}
-            >
-                {verified ? "Enter Workspace" : "Back to Login"}
-            </Link>
+            {verified ? (
+                <Link
+                    href="/"
+                    className={`inline-block w-full py-4 ${verified ? 'bg-primary hover:bg-blue-600' : 'bg-secondary hover:bg-secondary/80'} text-white font-bold rounded-2xl transition-all active:scale-[0.98] shadow-lg ${verified ? 'shadow-primary/20' : ''}`}
+                >
+                    Enter Workspace
+                </Link>
+            ) :
+                (
+                    <Link
+                        href="/auth/login"
+                        className={`inline-block w-full py-4 ${verified ? 'bg-primary hover:bg-blue-600' : 'bg-secondary hover:bg-secondary/80'} text-white font-bold rounded-2xl transition-all active:scale-[0.98] shadow-lg ${verified ? 'shadow-primary/20' : ''}`}
+                    >
+                        Back to Login
+                    </Link>
+                )}
+
+
 
             <p className="mt-8 text-[10px] text-muted-foreground uppercase font-bold tracking-widest opacity-40 italic">
                 Secure Identity Protocol v2.0
